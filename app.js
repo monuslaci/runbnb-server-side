@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const listingRoutes = require("./routes/listing");
-const errorController = require("./controllers/error");
 
 const app = express();
 const port = 3000;
@@ -17,8 +16,6 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/listings", listingRoutes);
-
-app.use(errorController.get404);
 
 mongoose
   .connect(
