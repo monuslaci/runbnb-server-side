@@ -66,6 +66,7 @@ const listingSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  user: { type: mongoose.ObjectId, ref: User },
 });
 
 module.exports = mongoose.model("Listing", listingSchema);
