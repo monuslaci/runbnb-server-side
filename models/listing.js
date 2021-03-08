@@ -12,6 +12,10 @@ const listingSchema = new Schema({
     ref: "User",
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
   saleOrRent: {
     type: String,
     required: true,
@@ -32,10 +36,6 @@ const listingSchema = new Schema({
     type: Array,
     required: false,
   },
-  address: {
-    type: String,
-    required: true,
-  },
 
   price: {
     type: Number,
@@ -54,6 +54,10 @@ const listingSchema = new Schema({
     type: Number,
     required: true,
   },
+  numberOfRooms: {
+    type: Number,
+    required: true,
+  }
   floor: {
     type: Number,
     required: true,
