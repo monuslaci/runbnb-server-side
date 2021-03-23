@@ -57,7 +57,7 @@ const listingSchema = new Schema({
   numberOfRooms: {
     type: Number,
     required: true,
-  }
+  },
   floor: {
     type: Number,
     required: true,
