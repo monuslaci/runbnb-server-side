@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -43,6 +44,7 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => {
   console.log("Database connection is ready.");
+  app.listen(port);
 })
 .catch((err) => {
   console.log(err);
