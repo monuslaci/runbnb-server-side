@@ -57,7 +57,7 @@ const listingSchema = new Schema({
   numberOfRooms: {
     type: Number,
     required: true,
-  }
+  },
   floor: {
     type: Number,
     required: true,
@@ -70,7 +70,9 @@ const listingSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  user: { type: mongoose.ObjectId, ref: User },
+  user: { type: mongoose.ObjectId, ref: "User", required:true },
 });
 
 module.exports = mongoose.model("Listing", listingSchema);
+
+
