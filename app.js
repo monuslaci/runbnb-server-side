@@ -21,6 +21,8 @@ app.get("/", (req, res, next) => {
 const listingRoutes = require("./routes/listing");
 app.use("/listings", listingRoutes);
 
+
+
 // mongoose
 //   .connect(
 //     "mongodb+srv://runbnb:runbnb9876@runbnb.ffxee.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
@@ -41,9 +43,14 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
   dbName: "realtor"
 })
-.then(() => {
+.then((result) => {
   console.log("Database connection is ready.");
+    console.log(result);
 })
 .catch((err) => {
   console.log(err);
+})
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server started on port 3000");
 })
