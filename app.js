@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -12,12 +13,12 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+
 app.get("/", (req, res, next) => {
   console.log("OK");
 });
 
-//routes
-//Listing
+
 const listingRoutes = require("./routes/listing");
 app.use("/listings", listingRoutes);
 

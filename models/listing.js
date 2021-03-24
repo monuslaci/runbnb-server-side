@@ -36,7 +36,6 @@ const listingSchema = new Schema({
     type: Array,
     required: false,
   },
-
   price: {
     type: Number,
     required: true,
@@ -49,14 +48,13 @@ const listingSchema = new Schema({
     type: Number,
     required: true,
   },
-
   size: {
     type: Number,
     required: true,
   },
   numberOfRooms: {
     type: Number,
-    required: true,
+    required: false,
   },
   floor: {
     type: Number,
@@ -70,7 +68,7 @@ const listingSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  user: { type: mongoose.ObjectId, ref: "User", required:true },
+  userId: { type: mongoose.ObjectId, ref: "User", required:true },
 });
 
 module.exports = mongoose.model("Listing", listingSchema);
