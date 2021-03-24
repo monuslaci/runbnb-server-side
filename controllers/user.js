@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const bcrypt = require('bcryptjs');
 
 exports.getUsers = (req, res, next) => {
     User.find()
@@ -18,7 +18,7 @@ exports.getUsers = (req, res, next) => {
 exports.registerUser = async (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
-    const passwordHash = req.body.passwordHash;
+    const password = req.body.password;
     const phone = req.body.phone;
     const isAdmin = req.body.isAdmin;
 
@@ -26,7 +26,7 @@ exports.registerUser = async (req, res, next) => {
     const user = new User({
         name: name,
         email: email,
-        passwordHash: passwordHash,
+        passwordHash: bcrypt.hashSync(req.body.password, 10), //salting rounds: 10
         phone: phone,
         isAdmin: isAdmin
     })

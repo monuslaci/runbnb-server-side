@@ -76,3 +76,42 @@ exports.saveListing = async (req, res, next) => {
     });
 
 };
+
+
+exports.uploadPicture = async (req, res, next) => {
+  const listingSearch = await Listing.findById(req.params.id);
+  console.log(listingSearch);
+  if (!listingSearch) return res.status(400).send("Invalid listing!");
+  console.log(req.file);
+
+
+  const file = req.file;
+  if(!file) return res.status(400).send('No image in the request')
+
+  const fileName = file.filename;
+  const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+  const newListing = await Listing.findByIdAndUpdate(
+    req.params.id, { //second parameter is an object we want to update the found category to:
+      imageURLs: `${basePath}${fileName}` //add the full path of the image + the image name: "http://localhost:3000/public/uploads/image-2323232"
+      },
+    //there is an option if I want to get back the new or the original data
+    {
+        new: true
+    }
+);
+
+
+
+if (!newListing) { //if there was a problem, and there is no category 
+  res.status(500).json({
+      success: false,
+      message: "The listing cannot be updated."
+  });
+}
+
+res.send(newListing);
+}
+
+
+
