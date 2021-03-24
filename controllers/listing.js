@@ -25,6 +25,7 @@ exports.saveListing = (req, res, next) => {
   const utilities = req.body.utilities;
 
   const size = req.body.size;
+  const numberOfRooms = req.body.numberOfRooms;
   const floor = req.body.floor;
   const elevator = req.body.elevator;
   const ac = req.body.ac;
@@ -38,25 +39,35 @@ exports.saveListing = (req, res, next) => {
     imageURLs: imageURLs,
     discription: discription,
     features: features,
-
     price: price,
     commonCost: commonCost,
     utilities: utilities,
-
+    numberOfRooms: numberOfRooms,
     size: size,
     floor: floor,
     elevator: elevator,
     ac: ac,
   });
 
-  
+
   listing
     .save()
     .then((result) => {
       console.log(result);
-      res.json({ message: "Listing is saved" });
+      if (result) {
+      return res.status(200).json({
+        success: true,
+        message: "Listing '" + listing.title + "' is saved!"
+      })
+    } else {
+      return res.status(404).json({
+          success: false,
+          message: "Listing '" + listing.title + "' could not be saved!"
+      })
+  }
     })
     .catch((err) => {
       console.log(err);
     });
+
 };
