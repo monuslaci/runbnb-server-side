@@ -3,14 +3,19 @@ const Listing = require("../models/listing");
 exports.getListings = (req, res, next) => {
   Listing.find()
     .then((listing) => {
-      console.log("ALL THE LISTING FOR THIS USER" + listing);
+      // console.log("ALL THE LISTING FOR THIS USER" + listing);
+      res.send(listing);
     })
     .catch((err) => {
       console.log(err);
     });
+   
 };
 
-exports.saveListing = (req, res, next) => {
+
+
+
+exports.saveListing = async (req, res, next) => {
   const title = req.body.title;
   const userId = req.body.userId;
   const saleOrRent = req.body.saleOrRent;
@@ -50,7 +55,7 @@ exports.saveListing = (req, res, next) => {
   });
 
 
-  listing
+  await listing
     .save()
     .then((result) => {
       console.log(result);
@@ -62,7 +67,7 @@ exports.saveListing = (req, res, next) => {
     } else {
       return res.status(404).json({
           success: false,
-          message: "Listing '" + listing.title + "' could not be saved!"
+          message: "Listing could not be saved!"
       })
   }
     })

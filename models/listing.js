@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const User = require("./user");
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
@@ -67,8 +67,7 @@ const listingSchema = new Schema({
   ac: {
     type: Boolean,
     required: true,
-  },
-  userId: { type: mongoose.ObjectId, ref: "User", required:true },
+  }
 });
 
 module.exports = mongoose.model("Listing", listingSchema);

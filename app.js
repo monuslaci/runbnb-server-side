@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const errorHandler = require('./helpers/error-handler');
-
+const api = process.env.API_URL;
 const app = express();
 
 //Enable CORS
@@ -33,7 +33,12 @@ app.get("/", (req, res, next) => {
 
 //Listing
 const listingRoutes = require("./routes/listing");
-app.use("/listings", listingRoutes);
+app.use(`${api}/listings`, listingRoutes);
+
+//User
+const userRoutes = require("./routes/user");
+app.use(`${api}/users`, userRoutes);
+
 
 
 
