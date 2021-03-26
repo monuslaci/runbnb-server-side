@@ -9,7 +9,7 @@ exports.getListings = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-   
+
 };
 
 
@@ -19,21 +19,30 @@ exports.saveListing = async (req, res, next) => {
   const title = req.body.title;
   const userId = req.body.userId;
   const saleOrRent = req.body.saleOrRent;
-  const status = "disable";
+  const status = "inactive";
   const address = req.body.address;
   const imageURLs = req.body.imageURLs;
-  const discription = req.body.discription;
-  const features = req.body.features;
+  const description = req.body.description;
+  const propertyType = req.body.propertyType;
+  const accessible = req.body.accessible;
 
   const price = req.body.price;
   const commonCost = req.body.commonCost;
   const utilities = req.body.utilities;
 
   const size = req.body.size;
-  const numberOfRooms = req.body.numberOfRooms;
+  const bedrooms = req.body.bedrooms;
+  const livingroom = req.body.livingroom;
+  const balcony = req.body.balcony;
   const floor = req.body.floor;
   const elevator = req.body.elevator;
+  const view = req.body.view;
+  const garage = req.body.garage;
   const ac = req.body.ac;
+  const heating = req.body.heating;
+  const furnished = req.body.furnished;
+  const features = req.body.features;
+
 
   const listing = new Listing({
     title: title,
@@ -42,16 +51,26 @@ exports.saveListing = async (req, res, next) => {
     status: status,
     address: address,
     imageURLs: imageURLs,
-    discription: discription,
-    features: features,
+    description: description,
+    propertyType: propertyType,
+    accessible: accessible,
+    
     price: price,
     commonCost: commonCost,
     utilities: utilities,
-    numberOfRooms: numberOfRooms,
+
     size: size,
+    bedrooms: bedrooms,
+    livingroom: livingroom,
+    balcony: balcony,
     floor: floor,
     elevator: elevator,
+    view: view,
+    garage: garage,
     ac: ac,
+    heating: heating,
+    furnished: furnished,
+    features: features
   });
 
 
@@ -60,16 +79,16 @@ exports.saveListing = async (req, res, next) => {
     .then((result) => {
       console.log(result);
       if (result) {
-      return res.status(200).json({
-        success: true,
-        message: "Listing '" + listing.title + "' is saved!"
-      })
-    } else {
-      return res.status(404).json({
+        return res.status(200).json({
+          success: true,
+          message: "Listing '" + listing.title + "' is saved!"
+        })
+      } else {
+        return res.status(404).json({
           success: false,
           message: "Listing could not be saved!"
-      })
-  }
+        })
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -86,7 +105,7 @@ exports.uploadPicture = async (req, res, next) => {
 
 
   const file = req.file;
-  if(!file) return res.status(400).send('No image in the request')
+  if (!file) return res.status(400).send('No image in the request')
 
   const fileName = file.filename;
   const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
@@ -94,24 +113,21 @@ exports.uploadPicture = async (req, res, next) => {
   const newListing = await Listing.findByIdAndUpdate(
     req.params.id, { //second parameter is an object we want to update the found category to:
       imageURLs: `${basePath}${fileName}` //add the full path of the image + the image name: "http://localhost:3000/public/uploads/image-2323232"
-      },
+    },
     //there is an option if I want to get back the new or the original data
     {
-        new: true
+      new: true
     }
-);
+  );
 
 
 
-if (!newListing) { //if there was a problem, and there is no category 
-  res.status(500).json({
+  if (!newListing) { //if there was a problem, and there is no category 
+    res.status(500).json({
       success: false,
       message: "The listing cannot be updated."
-  });
+    });
+  }
+
+  res.send(newListing);
 }
-
-res.send(newListing);
-}
-
-
-

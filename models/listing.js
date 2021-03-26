@@ -12,10 +12,6 @@ const listingSchema = new Schema({
     ref: "User",
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
   saleOrRent: {
     type: String,
     required: true,
@@ -23,18 +19,27 @@ const listingSchema = new Schema({
   status: {
     type: String,
     required: true,
+    default: "incative",
+  },
+  address: {
+    type: String,
+    required: true,
   },
   imageURLs: {
     type: Array,
     required: false,
   },
-  discription: {
+  description: {
     type: String,
     required: true,
   },
-  features: {
-    type: Array,
-    required: false,
+  propertyType: {
+    type: String,
+    required: true,
+  },
+  accessible: {
+    type: Boolean,
+    required: true,
   },
   price: {
     type: Number,
@@ -52,9 +57,17 @@ const listingSchema = new Schema({
     type: Number,
     required: true,
   },
-  numberOfRooms: {
+  bedrooms: {
     type: Number,
     required: true,
+  },
+  livingroom: {
+    type: Number,
+    required: true,
+  },
+  balcony: {
+    type: Boolean,
+    required: false,
   },
   floor: {
     type: Number,
@@ -64,9 +77,25 @@ const listingSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  view: {
+    type: String,
+    required: true,
+  },
   ac: {
     type: Boolean,
     required: true,
+  },
+  heating: {
+    type: String,
+    required: true,
+  },
+  furnished: {
+    type: Boolean,
+    required: true,
+  },
+  features: {
+    type: Array,
+    required: false,
   }
 });
 

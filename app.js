@@ -1,14 +1,22 @@
+//jshint esversion:6
 require('dotenv').config();
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const errorHandler = require('./helpers/error-handler');
+
+
 const api = process.env.API_URL;
 const app = express();
 
+
+
+
+//Error handling
+const errorHandler = require('./helpers/error-handler');
+
 //Enable CORS
+const cors = require("cors");
 app.use(cors());
 app.options("*", cors());
 
@@ -19,10 +27,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+//Serving static files in the public directory
+app.use(express.static("public"));
 //handle if there are any errors in the app or in the authentication
 app.use(errorHandler);
 //HTTP request logger
-app.use(morgan("tiny"));
+app.use(morgan("combined"));
 
 
 

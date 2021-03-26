@@ -33,13 +33,17 @@ const storage = multer.diskStorage({
   const uploadOptions = multer({ storage: storage });
 
 
+
 // Listing Routes
 router.get("", listingController.getListings);
 router.get("/", listingController.getListings);
 router.post("/save", listingController.saveListing);
 router.put("/uploadPicture/:id",  listingController.uploadPicture, uploadOptions.single('image'));
-            
-//router.post("/save2", listingController.saveListing2, uploadOptions.single('image'));
+
+
+//router.put("/uploadPicture/:id",  listingController.uploadPicture, upload.array());            
+
+
 
 module.exports = router;
 
