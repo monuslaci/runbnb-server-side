@@ -24,12 +24,13 @@ exports.saveListing = async (req, res, next) => {
   const imageURLs = req.body.imageURLs;
   const description = req.body.description;
   const propertyType = req.body.propertyType;
-  const accessible = req.body.accessible;
+  const accessibility  = req.body.accessibility;
 
   const price = req.body.price;
   const commonCost = req.body.commonCost;
   const utilities = req.body.utilities;
 
+  const landSize = req.body.landSize;
   const size = req.body.size;
   const bedrooms = req.body.bedrooms;
   const livingroom = req.body.livingroom;
@@ -41,6 +42,7 @@ exports.saveListing = async (req, res, next) => {
   const ac = req.body.ac;
   const heating = req.body.heating;
   const furnished = req.body.furnished;
+  const condition = req.body.condition;
   const features = req.body.features;
 
 
@@ -53,12 +55,13 @@ exports.saveListing = async (req, res, next) => {
     imageURLs: imageURLs,
     description: description,
     propertyType: propertyType,
-    accessible: accessible,
-    
+    accessibility : accessibility ,
+
     price: price,
     commonCost: commonCost,
     utilities: utilities,
 
+    landSize: landSize,
     size: size,
     bedrooms: bedrooms,
     livingroom: livingroom,
@@ -70,6 +73,7 @@ exports.saveListing = async (req, res, next) => {
     ac: ac,
     heating: heating,
     furnished: furnished,
+    condition: condition,
     features: features
   });
 

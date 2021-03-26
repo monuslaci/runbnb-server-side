@@ -37,8 +37,8 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
-  accessible: {
-    type: Boolean,
+  accessibility : {
+    type: String,
     required: true,
   },
   price: {
@@ -50,6 +50,10 @@ const listingSchema = new Schema({
     required: true,
   },
   utilities: {
+    type: Number,
+    required: true,
+  },
+  landSize: {
     type: Number,
     required: true,
   },
@@ -91,6 +95,10 @@ const listingSchema = new Schema({
   },
   furnished: {
     type: Boolean,
+    required: true,
+  },
+  condition: {
+    type: String,
     required: true,
   },
   features: {
