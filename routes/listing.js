@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 router.get("", listingController.getListings);
 router.get("/", listingController.getListings);
 router.post("/save", listingController.saveListing);
-router.put("/uploadPicture/:id",  listingController.uploadPicture, uploadOptions.single('image'));
+router.put("/uploadPicture/:id",  listingController.uploadPicture, uploadOptions.array('images',10));
 
 
 //router.put("/uploadPicture/:id",  listingController.uploadPicture, upload.array());            

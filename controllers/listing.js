@@ -85,7 +85,8 @@ exports.saveListing = async (req, res, next) => {
       if (result) {
         return res.status(200).json({
           success: true,
-          message: "Listing '" + listing.title + "' is saved!"
+          message: "Listing '" + listing.title + "' is saved!",
+          id: listing._id
         })
       } else {
         return res.status(404).json({

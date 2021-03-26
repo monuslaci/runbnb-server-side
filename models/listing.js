@@ -55,7 +55,7 @@ const listingSchema = new Schema({
   },
   landSize: {
     type: Number,
-    required: true,
+    required: false,
   },
   size: {
     type: Number,
@@ -66,7 +66,7 @@ const listingSchema = new Schema({
     required: true,
   },
   livingroom: {
-    type: Number,
+    type: Boolean,
     required: true,
   },
   balcony: {
@@ -75,7 +75,7 @@ const listingSchema = new Schema({
   },
   floor: {
     type: Number,
-    required: true,
+    required: false,
   },
   elevator: {
     type: Boolean,
@@ -95,15 +95,19 @@ const listingSchema = new Schema({
   },
   furnished: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   condition: {
     type: String,
-    required: true,
+    required: false,
   },
   features: {
     type: Array,
     required: false,
+  }, 
+  creationTime: {
+    type: Date,
+    default: Date.now,
   }
 });
 
