@@ -1,4 +1,7 @@
 const Listing = require("../models/listing");
+const multer=require("multer"); //for uploading pictures
+const upload = multer({dest:'public/uploads'}).array('images', 10);
+
 
 exports.getListings = (req, res, next) => {
   Listing.find()
@@ -136,3 +139,17 @@ exports.uploadPicture = async (req, res, next) => {
 
   res.send(newListing);
 }
+
+
+
+
+
+exports.images =  (req, res) => {
+  upload(req, res, (err) => {
+   if(err) {
+     res.status(400).send("Something went wrong!");
+     console.log(err)
+   }
+   res.send(req.file);
+ });
+};

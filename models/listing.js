@@ -26,9 +26,10 @@ const listingSchema = new Schema({
     required: true,
   },
   imageURLs: {
-    type: Array,
-    required: false,
+    type: String,
+    default: '',
   },
+  
   description: {
     type: String,
     required: true,
