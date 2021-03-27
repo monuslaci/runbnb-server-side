@@ -1,6 +1,7 @@
 const Listing = require("../models/listing");
 const multer = require("multer"); //for uploading pictures
 const storage = require("../helpers/pic-upload-options");
+
 const upload = multer({
   dest: 'public/uploads'
 }, {
