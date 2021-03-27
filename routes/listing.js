@@ -6,18 +6,18 @@ const uploadOptions = require("../helpers/pic-upload-options");
 
 
 
-
 // Listing Routes
 router.get("", listingController.getListings);
 router.get("/", listingController.getListings);
-router.post("/save", listingController.saveListing);
-router.put("/uploadPicture/:id",  listingController.uploadPicture, uploadOptions.array('images',10));
+router.post("/saveListing", listingController.saveListing);
+router.post("/saveListingWithImage", listingController.saveListingWithImage);
+router.post("/imageUpload/:id", listingController.imageUpload);
+
+
+//EZ Működik!
 router.post("/images", listingController.images);
 
-//router.put("/uploadPicture/:id",  listingController.uploadPicture, upload.array());            
 
 
 
 module.exports = router;
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               
