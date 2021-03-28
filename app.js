@@ -39,6 +39,8 @@ app.use(errorHandler);
 //HTTP request logger
 app.use(morgan("combined"));
 
+
+
 var type = upload.any();
 app.post('/pictures', type, function (req, res, next) {
   console.log(req.files)

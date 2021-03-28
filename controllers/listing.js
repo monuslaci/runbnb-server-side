@@ -142,17 +142,23 @@ exports.imageUpload = async (req, res, next) => {
 }
 
 exports.saveListingWithImage = async (req, res, next) => {
+ console.log(req.file)
+ console.log(req.file.filename)
+
   let fileName;
   let basePath;
 
-  upload(req, res, (err) => {
+
     const file = req.file;
     if (!file) return res.status(400).send('No image in the request')
-    console.log(req.file);
     fileName = file.filename;
+    let extension=file.extension;
+
+    console.log("fileName: "+fileName);
+    console.log("extension "+extension);
     basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-    console.log(basePath);
-  })
+
+
 
   const title = req.body.title;
   console.log("title: "+title )

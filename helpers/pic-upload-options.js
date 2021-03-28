@@ -15,30 +15,28 @@ const FILE_TYPE_MAP = {
     'image/jpg': 'jpg'
 }
 
-//specify the destination and file naming options
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) { //contol of the destination
-        const isValid = FILE_TYPE_MAP[file.mimetype];
-        let uploadError = new Error('invalid image type');
-
-        if(isValid) {
-            uploadError = null
-        }
-      cb(uploadError, 'public/uploads') //define the upload destination
-    },
-    filename: function (req, file, cb) { //contol of the filename
-        
-      const fileName = file.originalname.split(' ').join('-');
-      const extension = FILE_TYPE_MAP[file.mimetype]; //apply the extension restrictions
-      cb(null, `${fileName}-${Date.now()}.${extension}`)
-    }
-  })
+  destination: (req, file, cb) => {
+    const isValid = FILE_TYPE_MAP[file.mimetype];
+            let uploadError = new Error('invalid image type');
+    
+            if(isValid) {
+                uploadError = null
+            }
+    cb(uploadError, "public/uploads");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `${file.fieldname}-${Date.now()}.${ext}`);
+  },
+});
 
 
 
 
+const upload = multer({
+  storage: storage
+});
 
-// const uploadOptions = multer({ storage: storage }).fields([{name:'image',maxCount:1}]);
-//const uploadOptions = multer({storage: storage}).single('image');
 
-  module.exports = storage;
+  module.exports = upload;
