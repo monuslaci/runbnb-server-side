@@ -106,16 +106,18 @@ exports.imageUpload = async (req, res, next) => {
   
   console.log(listingSearch);
 
-  let fileName = "";
-  let basePath = "";
+  let fileName;
+  let basePath;
 
-  const files = req.files;
+  const files = req.files[0];
   if (!files) return res.status(400).send('No image in the request')
   console.log(req.files);
   fileName = files.filename;
 
+
+
   basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-  console.log(basePath);
+  console.log("basePath: "+`${basePath}${fileName}`);
 
 
   const newListing = await Listing.findByIdAndUpdate(
