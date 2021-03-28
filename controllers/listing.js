@@ -1,9 +1,10 @@
 const Listing = require("../models/listing");
+const User = require("../models/user");
 
+//All listings 
 exports.getListings = (req, res, next) => {
   Listing.find()
     .then((listing) => {
-      // console.log("ALL THE LISTING FOR THIS USER" + listing);
       res.send(listing);
     })
     .catch((err) => {
@@ -11,6 +12,27 @@ exports.getListings = (req, res, next) => {
     });
 
 };
+
+
+//All listings of a given user
+exports.getAllListingOfUser = async (req, res, next) => {
+  const userId = req.params.userId;
+
+  //const listingList = await User.findById(userId).populate("listing");
+   const listingList = await Listing.find({userId: userId})
+  console.log(listingList);
+
+  if (!listingList) {
+    res.status(500).json({
+      success: false,
+      message: "Listings of user cannot be retreived."
+    });
+  }
+  res.send(listingList);
+}
+
+
+
 
 exports.saveListing = async (req, res, next) => {
   const title = req.body.title;
@@ -98,13 +120,14 @@ exports.saveListing = async (req, res, next) => {
 
 };
 
-//Kép feltöltődik a filerendszerre, de nem update-elődik a listing
+
+//update listing with image 
 exports.imageUpload = async (req, res, next) => {
 
   const listingSearch = await Listing.findById(req.params.id);
   if (!listingSearch) return res.status(400).send("Invalid listing!");
 
-  console.log("Listing to be updated: "+listingSearch);
+  console.log("Listing to be updated: " + listingSearch);
 
   const files = req.file;
   if (!files) return res.status(400).send('No image in the request')

@@ -4,11 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
-
-
 const api = process.env.API_URL;
 const app = express();
 
@@ -39,18 +34,6 @@ app.use(errorHandler);
 //HTTP request logger
 app.use(morgan("combined"));
 
-
-
-var type = upload.any();
-app.post('/pictures', type, function (req, res, next) {
-  console.log(req.files)
-  
-  // req.files is array of `photos` files
-  // req.body will contain the text fields, if there were any
-
-  next()
-})
- 
 
 
 //Routes

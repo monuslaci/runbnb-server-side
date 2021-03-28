@@ -7,6 +7,7 @@ const upload = require("../helpers/pic-upload-options");
 // Listing Routes
 router.get("", listingController.getListings);
 router.get("/", listingController.getListings);
+router.get("/getAllListingOfUser/:userId", listingController.getAllListingOfUser);
 router.post("/saveListing", listingController.saveListing);
 router.post("/saveListingWithImage", upload.single("image"), listingController.saveListingWithImage);
 

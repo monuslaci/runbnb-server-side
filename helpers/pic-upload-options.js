@@ -1,9 +1,5 @@
 const multer=require("multer"); //for uploading pictures
-
 const express = require("express");
-
-
-
 const app = express();
 
 
