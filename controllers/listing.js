@@ -103,7 +103,7 @@ exports.imageUpload = async (req, res, next) => {
   const listingSearch = await Listing.findById(req.params.id);
 
   if (!listingSearch) return res.status(400).send("Invalid listing!");
-  
+
   console.log(listingSearch);
 
   let fileName;
@@ -117,7 +117,7 @@ exports.imageUpload = async (req, res, next) => {
 
 
   basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-  console.log("basePath: "+`${basePath}${fileName}`);
+  console.log("basePath: " + `${basePath}${fileName}`);
 
 
   const newListing = await Listing.findByIdAndUpdate(
@@ -142,26 +142,22 @@ exports.imageUpload = async (req, res, next) => {
 }
 
 exports.saveListingWithImage = async (req, res, next) => {
- console.log(req.file)
- console.log(req.file.filename)
+  //  console.log(req.file)
+  //  console.log(req.file.filename)
 
-  let fileName;
-  let basePath;
+  const file = req.file;
+  if (!file) return res.status(400).send('No image in the request')
+  let fileName = file.filename;
+  let extension = file.extension;
 
-
-    const file = req.file;
-    if (!file) return res.status(400).send('No image in the request')
-    fileName = file.filename;
-    let extension=file.extension;
-
-    console.log("fileName: "+fileName);
-    console.log("extension "+extension);
-    basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  console.log("fileName: " + fileName);
+  console.log("extension " + extension);
+  let basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
 
 
   const title = req.body.title;
-  console.log("title: "+title )
+  console.log("title: " + title)
 
   const userId = req.body.userId;
   const saleOrRent = req.body.saleOrRent;

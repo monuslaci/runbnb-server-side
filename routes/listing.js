@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const listingController = require("../controllers/listing");
-const multer = require("multer"); 
-
 const upload = require("../helpers/pic-upload-options");
 
 
