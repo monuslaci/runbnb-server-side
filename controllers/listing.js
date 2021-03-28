@@ -1,14 +1,4 @@
 const Listing = require("../models/listing");
-const multer = require("multer"); //for uploading pictures
-const storage = require("../helpers/pic-upload-options");
-
-const upload = multer({
-  dest: 'public/uploads'
-}, {
-  storage: storage
-}).single('image');
-
-
 
 exports.getListings = (req, res, next) => {
   Listing.find()
@@ -21,9 +11,6 @@ exports.getListings = (req, res, next) => {
     });
 
 };
-
-
-
 
 exports.saveListing = async (req, res, next) => {
   const title = req.body.title;
@@ -111,33 +98,24 @@ exports.saveListing = async (req, res, next) => {
 
 };
 
-
-
-
-
-
-
-
-
-
-
 //Kép feltöltődik a filerendszerre, de nem update-elődik a listing
 exports.imageUpload = async (req, res, next) => {
   const listingSearch = await Listing.findById(req.params.id);
+
   if (!listingSearch) return res.status(400).send("Invalid listing!");
+  
   console.log(listingSearch);
 
   let fileName = "";
   let basePath = "";
 
-  upload(req, res, (err) => {
-    const file = req.file;
-    if (!file) return res.status(400).send('No image in the request')
-    console.log(req.file);
-    fileName = file.filename;
-    basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
-    console.log(basePath);
-  })
+  const files = req.files;
+  if (!files) return res.status(400).send('No image in the request')
+  console.log(req.files);
+  fileName = files.filename;
+
+  basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  console.log(basePath);
 
 
   const newListing = await Listing.findByIdAndUpdate(
@@ -151,7 +129,6 @@ exports.imageUpload = async (req, res, next) => {
     }
   );
 
-
   if (!newListing) { //if there was a problem, and there is no category 
     res.status(500).json({
       success: false,
@@ -159,17 +136,10 @@ exports.imageUpload = async (req, res, next) => {
     });
   }
 
-
   res.send(newListing);
-
-
 }
 
-
-
 exports.saveListingWithImage = async (req, res, next) => {
-
-
   let fileName;
   let basePath;
 
@@ -182,17 +152,14 @@ exports.saveListingWithImage = async (req, res, next) => {
     console.log(basePath);
   })
 
-
-
   const title = req.body.title;
-
-console.log("title: "+title )
+  console.log("title: "+title )
 
   const userId = req.body.userId;
   const saleOrRent = req.body.saleOrRent;
   const status = "inactive";
   const address = req.body.address;
-   const image = `${basePath}${fileName}`;
+  const image = `${basePath}${fileName}`;
   const description = req.body.description;
   const propertyType = req.body.propertyType;
   const accessibility = req.body.accessibility;
@@ -216,14 +183,13 @@ console.log("title: "+title )
   const condition = req.body.condition;
   const features = req.body.features;
 
-
   const listing = new Listing({
     title: title,
     userId: userId,
     saleOrRent: saleOrRent,
     status: status,
     address: address,
-     image: image,
+    image: image,
     description: description,
     propertyType: propertyType,
     accessibility: accessibility,
@@ -268,17 +234,9 @@ console.log("title: "+title )
     .catch((err) => {
       console.log(err);
     });
-
 };
 
-
-
-
-
-
-
 //alap képfeltöltés ellenőrzések nélkül ->csak hogy meglegyen egyelőre
-
 exports.images = (req, res) => {
   upload(req, res, (err) => {
     if (err) {

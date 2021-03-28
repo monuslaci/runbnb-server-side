@@ -58,6 +58,7 @@ app.get("/", (req, res, next) => {
 
 //Listing
 const listingRoutes = require("./routes/listing");
+
 app.use(`${api}/listings`, listingRoutes);
 
 //User
