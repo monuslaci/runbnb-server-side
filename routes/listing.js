@@ -10,7 +10,7 @@ router.get("/", listingController.getListings);
 router.post("/saveListing", listingController.saveListing);
 router.post("/saveListingWithImage", upload.single("image"), listingController.saveListingWithImage);
 
-router.put("/imageUpload/:id", upload.any() , listingController.imageUpload);
+router.put("/imageUpload/:id", upload.single("image"), listingController.imageUpload);
 
 //EZ Működik!
 router.post("/images", listingController.images);

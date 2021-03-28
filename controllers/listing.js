@@ -100,23 +100,17 @@ exports.saveListing = async (req, res, next) => {
 
 //Kép feltöltődik a filerendszerre, de nem update-elődik a listing
 exports.imageUpload = async (req, res, next) => {
-  const listingSearch = await Listing.findById(req.params.id);
 
+  const listingSearch = await Listing.findById(req.params.id);
   if (!listingSearch) return res.status(400).send("Invalid listing!");
 
-  console.log(listingSearch);
+  console.log("Listing to be updated: "+listingSearch);
 
-  let fileName;
-  let basePath;
-
-  const files = req.files[0];
+  const files = req.file;
   if (!files) return res.status(400).send('No image in the request')
   console.log(req.files);
-  fileName = files.filename;
-
-
-
-  basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  let fileName = files.filename;
+  let basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
   console.log("basePath: " + `${basePath}${fileName}`);
 
 
