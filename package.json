@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon start"
+    "start": "nodemon start",
+    "serve": "forever start app.js"
   },
   "author": "Lali Micskei",
   "license": "ISC",
