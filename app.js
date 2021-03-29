@@ -1,30 +1,73 @@
+//jshint esversion:6
+require('dotenv').config();
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
-const listingRoutes = require("./routes/listing");
-
+const morgan = require("morgan");
+const api = process.env.API_URL;
 const app = express();
-const port = 3000;
 
+
+
+
+//Error handling
+const errorHandler = require('./helpers/error-handler');
+
+//Enable CORS
+const cors = require("cors");
 app.use(cors());
-app.use(bodyParser.json());
+app.options("*", cors());
 
+
+//--------Middleware-----
+app.use(bodyParser.json());
+//middleware for parsing bodies from URL
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+
+
+//Serving static files in the public directory
+app.use(express.static("public"));
+//handle if there are any errors in the app or in the authentication
+app.use(errorHandler);
+//HTTP request logger
+app.use(morgan("combined"));
+
+
+
+//Routes
 app.get("/", (req, res, next) => {
   console.log("OK");
 });
 
-app.use("/listings", listingRoutes);
+//Listing
+const listingRoutes = require("./routes/listing");
 
-mongoose
-  .connect(
-    "mongodb+srv://runbnb:runbnb9876@runbnb.ffxee.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-  )
-  .then((result) => {
-    console.log(result);
-    app.listen(port);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.use(`${api}/listings`, listingRoutes);
+
+//User
+const userRoutes = require("./routes/user");
+app.use(`${api}/users`, userRoutes);
+
+
+
+
+//Database connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: "realtor"
+})
+.then((result) => {
+  console.log("Database connection is ready.");
+   // console.log(result);
+})
+.catch((err) => {
+  console.log(err);
+})
+
+//Server
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server started on port 3000");
+})

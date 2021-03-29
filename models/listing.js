@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const User = require("./user");
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
@@ -12,10 +12,6 @@ const listingSchema = new Schema({
     ref: "User",
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
   saleOrRent: {
     type: String,
     required: true,
@@ -23,20 +19,29 @@ const listingSchema = new Schema({
   status: {
     type: String,
     required: true,
+    default: "incative",
   },
-  imageURLs: {
-    type: Array,
-    required: false,
-  },
-  discription: {
+  address: {
     type: String,
     required: true,
   },
-  features: {
-    type: Array,
-    required: false,
-  },
+  image: {
+    type: String,
 
+  },
+  
+  description: {
+    type: String,
+    required: true,
+  },
+  propertyType: {
+    type: String,
+    required: true,
+  },
+  accessibility : {
+    type: String,
+    required: true,
+  },
   price: {
     type: Number,
     required: true,
@@ -49,28 +54,64 @@ const listingSchema = new Schema({
     type: Number,
     required: true,
   },
-
+  landSize: {
+    type: Number,
+    required: false,
+  },
   size: {
     type: Number,
     required: true,
   },
-  numberOfRooms: {
+  bedrooms: {
     type: Number,
     required: true,
+  },
+  livingroom: {
+    type: Boolean,
+    required: true,
+  },
+  balcony: {
+    type: Boolean,
+    required: false,
   },
   floor: {
     type: Number,
-    required: true,
+    required: false,
   },
   elevator: {
     type: Boolean,
+    required: true,
+  },
+  view: {
+    type: String,
     required: true,
   },
   ac: {
     type: Boolean,
     required: true,
   },
-  user: { type: mongoose.ObjectId, ref: User },
+  heating: {
+    type: String,
+    required: true,
+  },
+  furnished: {
+    type: Boolean,
+    required: false,
+  },
+  condition: {
+    type: String,
+    required: false,
+  },
+  features: {
+    type: Array,
+    required: false,
+  }, 
+  creationTime: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 module.exports = mongoose.model("Listing", listingSchema);
+
+

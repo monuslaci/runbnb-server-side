@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const listing = require("./listing");
+const Listing = require("./listing");
 
 const Schema = mongoose.Schema;
 
@@ -12,12 +12,23 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  listings: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Listing",
-    },
-  ],
+  passwordHash: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
+  listings: [{
+    type: Schema.Types.ObjectId,
+    ref: "Listing",
+  }, ],
 });
 
 module.exports = mongoose.model("User", userSchema);
