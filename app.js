@@ -39,6 +39,7 @@ app.use(morgan("combined"));
 //Routes
 app.get("/", (req, res, next) => {
   console.log("OK");
+  res.send('Hello stranger')
 });
 
 //Listing
