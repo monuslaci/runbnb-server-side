@@ -1,5 +1,5 @@
 //jshint esversion:6
-require('dotenv').config();
+require('dotenv').config({path: "../runbnb-config/.env"});
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");

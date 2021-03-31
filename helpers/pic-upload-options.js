@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
             if(isValid) {
                 uploadError = null
             }
-    cb(uploadError, "public/uploads");
+    cb(uploadError, "../runbnb-public/uploads");
   },
   filename: (req, file, cb) => {
     const ext = file.mimetype.split("/")[1];

@@ -1,5 +1,6 @@
 const Listing = require("../models/listing");
 const User = require("../models/user");
+const mongoose = require("mongoose");
 
 //All listings 
 exports.getListings = (req, res, next) => {
@@ -17,6 +18,11 @@ exports.getListings = (req, res, next) => {
 //All listings of a given user
 exports.getAllListingOfUser = async (req, res, next) => {
   const userId = req.params.userId;
+  
+  if (!mongoose.isValidObjectId(req.params.userId)) {
+    return res.status(400).send('Invalid User Id')
+  }
+  
 
   //const listingList = await User.findById(userId).populate("listing");
    const listingList = await Listing.find({userId: userId})
@@ -121,8 +127,12 @@ exports.saveListing = async (req, res, next) => {
 };
 
 
+
+
 //update listing with image 
 exports.imageUpload = async (req, res, next) => {
+
+ 
 
   const listingSearch = await Listing.findById(req.params.id);
   if (!listingSearch) return res.status(400).send("Invalid listing!");
@@ -133,7 +143,7 @@ exports.imageUpload = async (req, res, next) => {
   if (!files) return res.status(400).send('No image in the request')
   console.log(req.files);
   let fileName = files.filename;
-  let basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  let basePath = `${req.protocol}://${req.get('host')}`+process.env.uploadPath;
   console.log("basePath: " + `${basePath}${fileName}`);
 
 
@@ -169,7 +179,7 @@ exports.saveListingWithImage = async (req, res, next) => {
 
   console.log("fileName: " + fileName);
   console.log("extension " + extension);
-  let basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+  let basePath = `${req.protocol}://${req.get('host')}`+process.env.uploadPath;
 
 
 
